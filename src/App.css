@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+}
+
+.header-left {
+  flex: 1;
+  justify-content: right;
+}
+
+.header-left-img {
+  height: auto;
+  width: auto;
+  max-width: 96px;
+  max-height: 96px;
+  margin-left: 48px;
+  margin-top: 16px;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.header-right {
+  flex: 1;
+  text-align: right;
+}
+
+.main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	margin-top: 16px;
+}
+
+
+.button-execute {
+  cursor: pointer;
+  margin-top: 16px;
+  padding: 8px;
+  border: 0;
+  border-radius: 5px;
+}
