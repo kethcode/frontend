@@ -59,8 +59,13 @@ export function EVMResults(props: any) {
   const executeBytecode = async () => {
     if (evm) {
       if (props.bytecode != "") {
-        if (ethers.utils.isBytesLike(props.bytecode)) {
-          const result = await evm.execute(props.bytecode);
+        let code = props.bytecode;
+        if (code.substring(0, 2) != "0x") {
+          code = "0x" + code;
+        }
+
+        if (ethers.utils.isBytesLike(code)) {
+          const result = await evm.execute(code);
           console.log(result);
           setResults(result);
         }
