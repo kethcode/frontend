@@ -7,7 +7,19 @@ const evm_address = "0x4121E8574D28b2E5f5777F7B00d435Ee4886A5F4";
 
 import evm_abi from "../../../abi/vEVM.json";
 
-export function EVMResults(props) {
+type vEVMState = {
+	  code: string;
+	  pc: string;
+	  output: string;
+	  stack: string;
+	  mem: string;
+	  storageKey: string;
+	  storageData: string;
+};
+
+
+
+export function EVMResults(props: any) {
   const provider = useProvider();
   const evm = useContract({
     address: evm_address,
@@ -27,15 +39,18 @@ export function EVMResults(props) {
 
   const renderResults = () => {
     if (results) {
+
+		const res: vEVMState = results;
+
       return (
         <div className="results">
           <h3>code</h3>
-          <p>{results.code}</p>
+          <p>{res.code}</p>
           {/* <p>{results.pc}</p> */}
           <h3>result</h3>
-          <p>{results.output}</p>
+          <p>{res.output}</p>
           <h3>stack</h3>
-          <p>{results.stack}</p>
+          <p>{res.stack}</p>
           {/* 
 				<p>{results.mem}</p>
 				<p>{results.storageKey}</p>
