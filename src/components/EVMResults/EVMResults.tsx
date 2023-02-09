@@ -1,5 +1,5 @@
 import { useProvider, useContract } from "wagmi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import { ethers } from "ethers";
 
@@ -8,16 +8,14 @@ const evm_address = "0x4121E8574D28b2E5f5777F7B00d435Ee4886A5F4";
 import evm_abi from "../../../abi/vEVM.json";
 
 type vEVMState = {
-	  code: string;
-	  pc: string;
-	  output: string;
-	  stack: string;
-	  mem: string;
-	  storageKey: string;
-	  storageData: string;
+  code: string;
+  pc: string;
+  output: string;
+  stack: string;
+  mem: string;
+  storageKey: string;
+  storageData: string;
 };
-
-
 
 export function EVMResults(props: any) {
   const provider = useProvider();
@@ -26,7 +24,6 @@ export function EVMResults(props: any) {
     abi: evm_abi.abi,
     signerOrProvider: provider,
   });
-
   const [results, setResults] = useState(null);
 
   //   console.log("  code:", state.code);
@@ -39,8 +36,7 @@ export function EVMResults(props: any) {
 
   const renderResults = () => {
     if (results) {
-
-		const res: vEVMState = results;
+      const res: vEVMState = results;
 
       return (
         <div className="results">
@@ -62,19 +58,17 @@ export function EVMResults(props: any) {
 
   const executeBytecode = async () => {
     if (evm) {
-      if (ethers.utils.isBytesLike(props.bytecode)) {
-        const result = await evm.execute(props.bytecode);
-        console.log(result);
-        setResults(result);
+      if (props.bytecode != "") {
+        if (ethers.utils.isBytesLike(props.bytecode)) {
+          const result = await evm.execute(props.bytecode);
+          console.log(result);
+          setResults(result);
+        }
       }
     }
   };
 
-  useEffect(() => {
-    if (props.bytecode) {
-      executeBytecode();
-    }
-  });
+  const result = useMemo(() => executeBytecode(), [props.bytecode]);
 
   return <>{renderResults()}</>;
 }
