@@ -38,9 +38,17 @@ export function EVMResults(props: any) {
     if (results) {
       const res: vEVMState = results;
 
-      const stack_array = res.stack.map((stack_slot) => <ul>{stack_slot.slice(2)}</ul>);
+      const stack_array = res.stack.map((stack_slot, index) => <ul> [{index}] {stack_slot.slice(2)}</ul>);
 	  const mem_temp = res.mem.slice(2).match(/.{1,64}/g)  || [];
-	  const mem_array = mem_temp.map((mem_slot) => <ul>{mem_slot}</ul>);
+	  const mem_array = mem_temp.map((mem_slot, index) => <ul> [{index}] {mem_slot}</ul>);
+
+	  const storage_size = res.storageKey.length;
+	  const storage_map = [];
+		for(let i = 0; i < storage_size; i++) {
+			storage_map.push({key: res.storageKey, data: res.storageData});
+		}
+		const storage_array = storage_map.map((slot) => <ul> [{slot.key}] :{slot.data}</ul>);
+
 
       // for(let i = 0; i < res.stack.length; i++) {
       // 	console.log(res.stack[i]);
@@ -59,10 +67,8 @@ export function EVMResults(props: any) {
             <p>{stack_array}</p>
 		  <h3>memory</h3>
 		  <p>{mem_array}</p>
-            {/* 
-           
-           <p>{results.storageKey}</p>
-           <p>{results.storageData}</p> */}
+		  <h3>storage</h3>
+		  <p>{storage_array}</p>
           </div>
         </div>
       );
