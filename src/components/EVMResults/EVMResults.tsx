@@ -11,10 +11,10 @@ type vEVMState = {
   code: string;
   pc: string;
   output: string;
-  stack: string;
+  stack: string[];
   mem: string;
-  storageKey: string;
-  storageData: string;
+  storageKey: string[];
+  storageData: string[];
 };
 
 export function EVMResults(props: any) {
@@ -38,6 +38,14 @@ export function EVMResults(props: any) {
     if (results) {
       const res: vEVMState = results;
 
+      const stack_array = res.stack.map((stack_slot) => <ul>{stack_slot.slice(2)}</ul>);
+	  const mem_temp = res.mem.slice(2).match(/.{1,64}/g)  || [];
+	  const mem_array = mem_temp.map((mem_slot) => <ul>{mem_slot}</ul>);
+
+      // for(let i = 0; i < res.stack.length; i++) {
+      // 	console.log(res.stack[i]);
+      // }
+
       return (
         <div className="results">
           <h2>results</h2>
@@ -48,9 +56,11 @@ export function EVMResults(props: any) {
             <h3>output</h3>
             <p>{res.output}</p>
             <h3>stack</h3>
-            <p>{res.stack}</p>
+            <p>{stack_array}</p>
+		  <h3>memory</h3>
+		  <p>{mem_array}</p>
             {/* 
-           <p>{results.mem}</p>
+           
            <p>{results.storageKey}</p>
            <p>{results.storageData}</p> */}
           </div>
