@@ -40,17 +40,20 @@ export function EVMResults(props: any) {
 
       return (
         <div className="results">
-          <h3>code</h3>
-          <p>{res.code}</p>
-          {/* <p>{results.pc}</p> */}
-          <h3>result</h3>
-          <p>{res.output}</p>
-          <h3>stack</h3>
-          <p>{res.stack}</p>
-          {/* 
-				<p>{results.mem}</p>
-				<p>{results.storageKey}</p>
-				<p>{results.storageData}</p> */}
+          <h2>results</h2>
+          <div className="container-terminal">
+            <h3>code</h3>
+            <p>{res.code}</p>
+            {/* <p>{results.pc}</p> */}
+            <h3>output</h3>
+            <p>{res.output}</p>
+            <h3>stack</h3>
+            <p>{res.stack}</p>
+            {/* 
+           <p>{results.mem}</p>
+           <p>{results.storageKey}</p>
+           <p>{results.storageData}</p> */}
+          </div>
         </div>
       );
     }

@@ -58,7 +58,6 @@ export function App() {
         <button className="button-execute" onClick={(e) => setBytecode(text)}>
           Execute
         </button>
-        <h2>output</h2>
         {bytecode && <EVMResults bytecode={bytecode} />}
       </div>
     </>

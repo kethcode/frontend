@@ -1,8 +1,22 @@
-.header {
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Roboto+Mono&family=Share+Tech+Mono&display=swap');
+
+html {
+  height: 100vh;
+  background: black;
+  background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
+  font-family: 'Roboto Mono', monospace;
+ }
+ 
+ body {
+  padding: 20px;
+  margin: 0 auto;
+  color: #fff;
+ }
+ 
+ .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
 }
 
 .header-left {
@@ -17,6 +31,7 @@
   max-height: 96px;
   margin-left: 48px;
   margin-top: 16px;
+  filter: drop-shadow(0px 0px 12px rgba(49, 164, 160, 0.5));
 }
 
 
@@ -31,6 +46,26 @@
   text-align: right;
 }
 
+h1 {
+  margin-bottom: -10px;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #0ff,
+    0 0 42px #0ff,
+    0 0 82px #0ff;
+}
+
+h5{
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 2rem;
+  margin: 0;
+  margin-left: 5rem;
+  transform: rotate(-10deg);
+}
+
 .main {
 	display: flex;
 	align-items: center;
@@ -40,6 +75,20 @@
 	margin-top: 16px;
 }
 
+.textarea-terminal{
+  outline: none;
+  background: #111;
+  border: 1px solid #777;
+  padding-left: 5px;
+  color: white;
+  width: 50vw;
+  height: 6rem;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.textarea-terminal::placeholder{
+  color: #728ba0;
+}
 
 .button-execute {
   cursor: pointer;
@@ -47,4 +96,33 @@
   padding: 8px;
   border: 0;
   border-radius: 5px;
+
+  border: 0.2rem solid #fff;
+  border-radius: 2rem;
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  background: transparent;
+  color: #fff;
+  box-shadow: 
+    0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 2rem #ff6633,
+    0 0 0.8rem #ff6633,
+    0 0 2.8rem #ff6633,
+    inset 0 0 1.3rem #ff6633;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.container-terminal{
+  background: #111;
+  border: 1px solid #777;
+  padding: 5px;
+}
+
+.container-terminal h3{
+  font-size: 13px;
+}
+
+.container-terminal p{
+  font-size: 13px;
 }
