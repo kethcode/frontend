@@ -3,18 +3,19 @@ import { useEffect, useState, useMemo } from "react";
 
 import { ethers } from "ethers";
 
-const evm_address = "0x6a1707Eaf4cA180A71dB1B74d20c08Fd2597fdD2";
+const evm_address = "0x745470FD2569845798fD48d010cDAE0e77229af9";
 
 import evm_abi from "../../../abi/vEVM.json";
 
 type vEVMState = {
   code: string;
   pc: string;
-  output: string;
   stack: string[];
   mem: string;
   storageKey: string[];
   storageData: string[];
+  logs: string[];
+  output: string;
 };
 
 export function EVMResults(props: any) {
@@ -38,17 +39,43 @@ export function EVMResults(props: any) {
     if (results) {
       const res: vEVMState = results;
 
-      const stack_array = res.stack.map((stack_slot, index) => <ul> [{index}] {stack_slot.slice(2)}</ul>);
-	  const mem_temp = res.mem.slice(2).match(/.{1,64}/g)  || [];
-	  const mem_array = mem_temp.map((mem_slot, index) => <ul> [{index}] {mem_slot}</ul>);
+      const stack_array = res.stack.map((stack_slot, index) => (
+        <li key={index}>
+          {" "}
+          [{index}] {stack_slot.slice(2)}
+        </li>
+      ));
+      const mem_temp = res.mem.slice(2).match(/.{1,64}/g) || [];
+      const mem_array = mem_temp.map((mem_slot, index) => (
+        <li key={index}>
+          {" "}
+          [{index}] {mem_slot}
+        </li>
+      ));
 
-	  const storage_size = res.storageKey.length;
-	  const storage_map = [];
-		for(let i = 0; i < storage_size; i++) {
-			storage_map.push({key: res.storageKey, data: res.storageData});
-		}
-		const storage_array = storage_map.map((slot) => <ul> [{slot.key}] :{slot.data}</ul>);
+      const storage_size = res.storageKey.length;
+      const storage_map = [];
+      for (let i = 0; i < storage_size; i++) {
+        storage_map.push({ key: res.storageKey, data: res.storageData });
+      }
+      const storage_array = storage_map.map((slot, index) => (
+        <li key={index}>
+          {" "}
+          [{slot.key}] :{slot.data}
+        </li>
+      ));
 
+      const logs_size = res.logs.length;
+      const logs_map = [];
+      for (let i = 0; i < logs_size; i++) {
+        logs_map.push(res.logs[i].slice(2).match(/.{1,64}/g) || []);
+      }
+      const logs_array = logs_map.map((log, index) => (
+        <li key={index}>
+          {" "}
+          [{index}] {log}
+        </li>
+      ));
 
       // for(let i = 0; i < res.stack.length; i++) {
       // 	console.log(res.stack[i]);
@@ -64,11 +91,13 @@ export function EVMResults(props: any) {
             <h3>output</h3>
             <p>{res.output}</p>
             <h3>stack</h3>
-            <p>{stack_array}</p>
-		  <h3>memory</h3>
-		  <p>{mem_array}</p>
-		  <h3>storage</h3>
-		  <p>{storage_array}</p>
+            <ul>{stack_array}</ul>
+            <h3>memory</h3>
+            <ul>{mem_array}</ul>
+            <h3>storage</h3>
+            <ul>{storage_array}</ul>
+            <h3>logs</h3>
+            <ul>{logs_array}</ul>
           </div>
         </div>
       );
